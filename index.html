@@ -196,15 +196,15 @@
     .pdesc { font-size: 0.8rem; color: var(--text-light); line-height: 1.5; }
     .pcard.feat .pdesc { color: rgba(247,242,234,0.6); }
     .pamount { padding: 1.25rem 1.75rem; border-bottom: 1px solid var(--cream-mid); }
-    .pcard.feat .pamount { border-color: rgba(247,242,234,0.15); }
+    .pcard.feat .pamount { border-color: var(--cream-mid) !important; background: var(--white); }
     .pfrom { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); display: block; }
-    .pcard.feat .pfrom { color: rgba(247,242,234,0.5); }
+    .pcard.feat .pfrom { color: var(--text-light) !important; }
     .pprice { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--forest); }
-    .pcard.feat .pprice { color: var(--cream); }
+    .pcard.feat .pprice { color: var(--forest) !important; }
     .pitems { padding: 1.25rem 1.75rem; list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
     .pitems li { font-size: 0.82rem; color: var(--text-mid); display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.5; }
     .pitems li::before { content: '✓'; color: var(--gold); font-size: 0.75rem; flex-shrink: 0; margin-top: 1px; }
-    .pcard.feat .pitems li { color: rgba(247,242,234,0.75); }
+    .pcard.feat .pitems li { color: var(--text-dark) !important; }
     .pcta { padding: 1.25rem 1.75rem 1.75rem; }
     .pbtn { display: block; text-align: center; padding: 0.75rem; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
     .pbtn-out { border: 2px solid var(--forest); color: var(--forest); background: transparent; }
@@ -220,7 +220,7 @@
     .pnote { margin-top: 1.75rem; font-size: 0.82rem; color: var(--text-light); text-align: center; }
 
     /* EXTERIOR STRIP */
-    .exterior-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .exterior-strip { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0; }
     .ext-item { position: relative; height: 480px; overflow: hidden; }
     .ext-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
     .ext-item:hover img { transform: scale(1.03); }
@@ -228,6 +228,7 @@
     .ext-tag { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.5rem; }
     .ext-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; color: #fff; line-height: 1.2; margin-bottom: 0.4rem; }
     .ext-desc { font-size: 0.82rem; color: rgba(247,242,234,0.65); font-weight: 300; max-width: 320px; }
+    @media(max-width:1024px){ .exterior-strip{grid-template-columns:1fr 1fr} }
     @media(max-width:768px){ .exterior-strip{grid-template-columns:1fr} .ext-item{height:320px} }
     .board-section { background: var(--cream-light); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
     .board-widget { background: var(--white); border: 1px solid var(--cream-mid); border-radius: 4px; padding: 2rem; box-shadow: 0 8px 40px rgba(0,0,0,0.07); }
@@ -329,7 +330,7 @@
     .mob-nav.open { display: flex; }
     .mob-nav a { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 500; color: var(--forest); text-decoration: none; opacity: 0; transform: translateX(-20px); animation: slideIn 0.3s forwards; }
     @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
-    .mob-nav a:nth-child(1){animation-delay:.05s}.mob-nav a:nth-child(2){animation-delay:.1s}.mob-nav a:nth-child(3){animation-delay:.15s}.mob-nav a:nth-child(4){animation-delay:.2s}.mob-nav a:nth-child(5){animation-delay:.25s}
+    .mob-nav a:nth-child(1){animation-delay:.05s}.mob-nav a:nth-child(2){animation-delay:.1s}.mob-nav a:nth-child(3){animation-delay:.15s}.mob-nav a:nth-child(4){animation-delay:.2s}.mob-nav a:nth-child(5){animation-delay:.25s}.mob-nav a:nth-child(6){animation-delay:.3s}
 
     /* RESPONSIVE */
     @media(max-width:1024px){
@@ -353,6 +354,19 @@
       .ft{grid-template-columns:1fr;gap:2rem}.ft-bottom{flex-direction:column;gap:0.5rem;text-align:center}
       footer{padding:3rem 1.75rem 2rem}.markets{padding:4rem 1.75rem}
     }
+
+    /* TEAM SECTION */
+    .team-section { background: var(--forest); padding: 6rem 5rem; }
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .team-card { border-radius: 3px; overflow: hidden; position: relative; }
+    .team-photo { width: 100%; height: 380px; object-fit: cover; display: block; transition: transform 0.5s ease; }
+    .team-card:hover .team-photo { transform: scale(1.04); }
+
+    .team-card-info { padding: 1.25rem 0 0; }
+    .team-card-role { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.3rem; }
+    .team-card-desc { font-size: 0.85rem; color: rgba(247,242,234,0.6); line-height: 1.6; font-weight: 300; }
+    @media(max-width:768px){ .team-grid{grid-template-columns:1fr} .team-section{padding:4rem 1.75rem} }
+    @media(max-width:1024px){ .team-section{padding:5rem 3rem} .team-grid{grid-template-columns:1fr 1fr} }
   </style>
 </head>
 <body>
@@ -365,6 +379,7 @@
   </a>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
+    <li><a href="#team">Our Team</a></li>
     <li><a href="#process">Our Process</a></li>
     <li><a href="#pricing">Pricing</a></li>
     <li><a href="#markets">Markets</a></li>
@@ -378,6 +393,7 @@
 <!-- MOBILE NAV -->
 <div class="mob-nav" id="mobNav">
   <a href="#services" onclick="closeNav()">Services</a>
+  <a href="#team" onclick="closeNav()">Our Team</a>
   <a href="#process" onclick="closeNav()">Our Process</a>
   <a href="#pricing" onclick="closeNav()">Pricing</a>
   <a href="#markets" onclick="closeNav()">Markets</a>
@@ -387,9 +403,9 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <span class="hero-eyebrow">Lagos, Nigeria</span>
+    <span class="hero-eyebrow">Nigeria</span>
     <h1 class="hero-headline">Your space,<br><em>transformed</em><br>with intention.</h1>
-    <p class="hero-subline">Premium decorative painting and expert colour consultation for discerning Lagos homeowners. You see exactly how your home will look before we begin. No guesswork. No surprises.</p>
+    <p class="hero-subline">Premium decorative painting and expert colour consultation for discerning Nigerian homeowners. You see exactly how your home will look before we begin. No guesswork. No surprises.</p>
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">Book a Colour Consult</a>
       <a href="#services" class="btn-secondary">See Our Services</a>
@@ -430,9 +446,9 @@
   <div>
     <p class="lbl">About Chroma</p>
     <h2 class="sh">A different kind of<br><em>paint brand.</em></h2>
-    <p class="sb">In Lagos, most painting jobs end in frustration. Wrong colours, missed timelines, sites left in a mess. Chroma by Tetrux was built specifically for homeowners who are done settling for that.</p>
+    <p class="sb">Across Nigeria, most painting jobs end in frustration. Wrong colours, missed timelines, sites left in a mess. Chroma by Tetrux was built specifically for homeowners who are done settling for that.</p>
     <br>
-    <p class="sb">We combine expert colour knowledge with disciplined, professional execution. Our consultation process means you see your palette before we buy a single tin of paint. Our salary-employed team are trained to Chroma standards, not sourced from a pool on the day.</p>
+    <p class="sb">We combine expert colour knowledge with precise, clean execution. You see your space in your chosen colour before we open a single tin of paint. Every detail confirmed. Every shade approved.</p>
     <br>
     <p class="sb">The result is a home that looks exactly the way you imagined. Delivered on time. Finished properly. Backed by a warranty.</p>
     <a href="#services" class="btn-secondary" style="margin-top:2rem;display:inline-block">Explore Our Services</a>
@@ -450,7 +466,7 @@
       <div class="g-overlay"><span>Living Room, Lekki</span></div>
     </div>
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=700&q=80" alt="Luxury bedroom" loading="lazy" />
+      <img src="https://images.unsplash.com/photo-1560448204-603b3fc33ddc?auto=format&fit=crop&w=700&q=80" alt="Luxury bedroom" loading="lazy" />
       <div class="g-overlay"><span>Master Bedroom, Ikoyi</span></div>
     </div>
     <div class="g-item">
@@ -458,11 +474,11 @@
       <div class="g-overlay"><span>Exterior, Victoria Island</span></div>
     </div>
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=700&q=80" alt="Warm dining area" loading="lazy" />
+      <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=700&q=80" alt="Warm dining area" loading="lazy" />
       <div class="g-overlay"><span>Open Plan, Banana Island</span></div>
     </div>
     <div class="g-item">
-      <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=700&q=80" alt="Neutral palette lounge" loading="lazy" />
+      <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?auto=format&fit=crop&w=700&q=80" alt="Neutral palette lounge" loading="lazy" />
       <div class="g-overlay"><span>Lounge, Magodo GRA</span></div>
     </div>
   </div>
@@ -486,6 +502,201 @@
       <span class="ext-tag">Exterior — Clean Modern</span>
       <div class="ext-title">Every Home<br>Deserves Precision.</div>
       <p class="ext-desc">Whether a compact bungalow or a multi-storey duplex, the Chroma standard applies on every facade, every time.</p>
+    </div>
+  </div>
+  <div class="ext-item">
+    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1000&q=80"
+         alt="Multi-storey residential building exterior" loading="lazy" />
+    <div class="ext-overlay">
+      <span class="ext-tag">Exterior — Multi-Storey</span>
+      <div class="ext-title">Three Floors.<br>One Standard.</div>
+      <p class="ext-desc">From the ground floor to the top, every surface receives the same attention. No shortcuts on the upper floors.</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- TEAM -->
+<div class="team-section section on-dark" id="team">
+  <p class="lbl">Our Team</p>
+  <h2 class="sh">Equipped.<br><em>On every site.</em></h2>
+  <p class="sb">Our team arrives uniformed, fully kitted, and ready to work. Every job is assigned a dedicated team with a senior on site from day one through to handover.</p>
+  <div class="team-grid">
+    <div class="team-card">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 380" width="100%" height="380" style="display:block;background:#1A3630">
+  <!-- Sky -->
+  <rect width="400" height="380" fill="#1A3630"/>
+  <!-- Building facade -->
+  <rect x="60" y="30" width="280" height="320" fill="#EDE7DB" rx="2"/>
+  <!-- Floor lines -->
+  <line x1="60" y1="135" x2="340" y2="135" stroke="#D4C9B8" stroke-width="2"/>
+  <line x1="60" y1="235" x2="340" y2="235" stroke="#D4C9B8" stroke-width="2"/>
+  <!-- Windows floor 3 -->
+  <rect x="90" y="50" width="50" height="60" fill="#7BADB8" rx="2" opacity="0.8"/>
+  <rect x="175" y="50" width="50" height="60" fill="#7BADB8" rx="2" opacity="0.8"/>
+  <rect x="260" y="50" width="50" height="60" fill="#7BADB8" rx="2" opacity="0.8"/>
+  <!-- Windows floor 2 -->
+  <rect x="90" y="152" width="50" height="60" fill="#7BADB8" rx="2" opacity="0.8"/>
+  <rect x="175" y="152" width="50" height="60" fill="#7BADB8" rx="2" opacity="0.8"/>
+  <rect x="260" y="152" width="50" height="60" fill="#7BADB8" rx="2" opacity="0.8"/>
+  <!-- Windows floor 1 -->
+  <rect x="90" y="252" width="50" height="60" fill="#7BADB8" rx="2" opacity="0.8"/>
+  <rect x="260" y="252" width="50" height="60" fill="#7BADB8" rx="2" opacity="0.8"/>
+  <!-- Scaffolding vertical -->
+  <rect x="30" y="20" width="6" height="340" fill="#4A4540" rx="2"/>
+  <rect x="364" y="20" width="6" height="340" fill="#4A4540" rx="2"/>
+  <!-- Scaffolding horizontal rails -->
+  <rect x="24" y="130" width="352" height="5" fill="#6B6560" rx="2"/>
+  <rect x="24" y="230" width="352" height="5" fill="#6B6560" rx="2"/>
+  <rect x="24" y="330" width="352" height="5" fill="#6B6560" rx="2"/>
+  <!-- Scaffold boards -->
+  <rect x="24" y="125" width="60" height="10" fill="#8B7355" rx="1"/>
+  <rect x="316" y="225" width="54" height="10" fill="#8B7355" rx="1"/>
+  <!-- Worker 1 on upper scaffold (floor 3) - Black painter -->
+  <!-- Body/torso - green uniform -->
+  <rect x="32" y="85" width="22" height="28" fill="#254E45" rx="3"/>
+  <!-- Head - dark skin -->
+  <circle cx="43" cy="78" r="10" fill="#3D1F0A"/>
+  <!-- Hard hat -->
+  <ellipse cx="43" cy="70" rx="12" ry="6" fill="#C09040"/>
+  <rect x="33" y="70" width="20" height="5" fill="#C09040"/>
+  <!-- Arms -->
+  <line x1="32" y1="92" x2="18" y2="100" stroke="#3D1F0A" stroke-width="4" stroke-linecap="round"/>
+  <line x1="54" y1="92" x2="62" y2="88" stroke="#3D1F0A" stroke-width="4" stroke-linecap="round"/>
+  <!-- Paint roller handle -->
+  <line x1="62" y1="88" x2="70" y2="80" stroke="#6B6560" stroke-width="2.5"/>
+  <!-- Roller head -->
+  <rect x="68" y="73" width="16" height="8" fill="#EDE7DB" rx="2"/>
+  <!-- Legs -->
+  <rect x="35" y="113" width="8" height="12" fill="#1A1A1A" rx="2"/>
+  <rect x="47" y="113" width="8" height="12" fill="#1A1A1A" rx="2"/>
+  <!-- Worker 2 on lower scaffold (floor 1) -->
+  <rect x="326" y="182" width="22" height="28" fill="#254E45" rx="3"/>
+  <circle cx="337" cy="175" r="10" fill="#3D1F0A"/>
+  <ellipse cx="337" cy="167" rx="12" ry="6" fill="#C09040"/>
+  <rect x="327" y="167" width="20" height="5" fill="#C09040"/>
+  <line x1="326" y1="190" x2="318" y2="184" stroke="#3D1F0A" stroke-width="4" stroke-linecap="round"/>
+  <line x1="348" y1="190" x2="356" y2="186" stroke="#3D1F0A" stroke-width="4" stroke-linecap="round"/>
+  <line x1="356" y1="186" x2="364" y2="178" stroke="#6B6560" stroke-width="2.5"/>
+  <rect x="360" y="171" width="16" height="8" fill="#EDE7DB" rx="2"/>
+  <rect x="329" y="210" width="8" height="12" fill="#1A1A1A" rx="2"/>
+  <rect x="341" y="210" width="8" height="12" fill="#1A1A1A" rx="2"/>
+  <!-- Paint bucket -->
+  <rect x="22" y="117" width="12" height="10" fill="#C09040" rx="1"/>
+  <!-- Chroma text small -->
+  <text x="200" y="370" font-family="serif" font-size="9" fill="rgba(247,242,234,0.4)" text-anchor="middle" letter-spacing="3">CHROMA BY TETRUX</text>
+</svg>
+      <div class="team-card-info">
+        <div class="team-card-role">Exterior — 3 Storeys</div>
+        <div class="team-card-desc">Full facade coverage. Ground to top floor. Every surface prepped, primed, and finished to the same standard.</div>
+      </div>
+    </div>
+    <div class="team-card">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 380" width="100%" height="380" style="display:block;background:#F7F2EA">
+  <!-- Wall being painted - warm terracotta going on -->
+  <rect width="400" height="380" fill="#EDE7DB"/>
+  <!-- Freshly painted section -->
+  <rect x="0" y="0" width="260" height="380" fill="#C09040" opacity="0.18"/>
+  <rect x="258" y="0" width="4" height="380" fill="#C09040" opacity="0.5"/>
+  <!-- Scaffold plank -->
+  <rect x="0" y="240" width="400" height="14" fill="#8B7355"/>
+  <!-- Vertical scaffold poles -->
+  <rect x="10" y="0" width="5" height="380" fill="#6B6560" opacity="0.6" rx="2"/>
+  <rect x="385" y="0" width="5" height="380" fill="#6B6560" opacity="0.6" rx="2"/>
+  <!-- Worker - full figure, Black painter with roller -->
+  <!-- Legs -->
+  <rect x="182" y="280" width="14" height="80" fill="#1A1A1A" rx="3"/>
+  <rect x="204" y="280" width="14" height="80" fill="#1A1A1A" rx="3"/>
+  <!-- Boots -->
+  <rect x="180" y="350" width="18" height="12" fill="#3D1F0A" rx="2"/>
+  <rect x="202" y="350" width="18" height="12" fill="#3D1F0A" rx="2"/>
+  <!-- Torso - green Chroma uniform -->
+  <rect x="175" y="195" width="50" height="90" fill="#1A3630" rx="5"/>
+  <!-- Uniform detail - Chroma arm stripe -->
+  <rect x="175" y="210" width="6" height="40" fill="#C09040" rx="2"/>
+  <!-- Left arm extended with roller -->
+  <line x1="175" y1="215" x2="100" y2="195" stroke="#3D1F0A" stroke-width="10" stroke-linecap="round"/>
+  <!-- Right arm bent -->
+  <line x1="225" y1="215" x2="235" y2="245" stroke="#3D1F0A" stroke-width="10" stroke-linecap="round"/>
+  <!-- Roller pole -->
+  <line x1="100" y1="195" x2="60" y2="185" stroke="#6B6560" stroke-width="4" stroke-linecap="round"/>
+  <!-- Roller head -->
+  <rect x="30" y="177" width="34" height="16" fill="#F7F2EA" rx="4"/>
+  <rect x="30" y="177" width="34" height="16" fill="#C09040" rx="4" opacity="0.3"/>
+  <!-- Head - dark skin -->
+  <circle cx="200" cy="178" r="20" fill="#3D1F0A"/>
+  <!-- Hard hat -->
+  <ellipse cx="200" cy="161" rx="24" ry="11" fill="#C09040"/>
+  <rect x="178" y="161" width="44" height="8" fill="#C09040"/>
+  <!-- Face detail -->
+  <circle cx="193" cy="181" r="2" fill="#5C2E0A" opacity="0.6"/>
+  <circle cx="207" cy="181" r="2" fill="#5C2E0A" opacity="0.6"/>
+  <!-- Paint tray on scaffold -->
+  <rect x="320" y="236" width="50" height="14" fill="#C09040" rx="3" opacity="0.7"/>
+  <!-- Uniform logo area -->
+  <circle cx="210" cy="220" r="6" fill="#C09040" opacity="0.6"/>
+  <text x="200" y="370" font-family="serif" font-size="9" fill="rgba(26,54,48,0.35)" text-anchor="middle" letter-spacing="3">CHROMA BY TETRUX</text>
+</svg>
+      <div class="team-card-info">
+        <div class="team-card-role">At Work — Upper Floors</div>
+        <div class="team-card-desc">The same precision on the third floor as the first. No floor is an afterthought on a Chroma site.</div>
+      </div>
+    </div>
+    <div class="team-card">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 380" width="100%" height="380" style="display:block;background:#1A3630">
+  <rect width="400" height="380" fill="#1A3630"/>
+  <!-- Freshly painted building -->
+  <rect x="40" y="20" width="320" height="290" fill="#C09040" opacity="0.15" rx="3"/>
+  <rect x="40" y="20" width="320" height="290" fill="none" stroke="#C09040" stroke-width="2" rx="3" opacity="0.4"/>
+  <!-- Floor lines -->
+  <line x1="40" y1="117" x2="360" y2="117" stroke="rgba(192,144,64,0.3)" stroke-width="1.5"/>
+  <line x1="40" y1="213" x2="360" y2="213" stroke="rgba(192,144,64,0.3)" stroke-width="1.5"/>
+  <!-- Windows -->
+  <rect x="65" y="40" width="45" height="55" fill="#7BADB8" rx="2" opacity="0.7"/>
+  <rect x="177" y="40" width="45" height="55" fill="#7BADB8" rx="2" opacity="0.7"/>
+  <rect x="289" y="40" width="45" height="55" fill="#7BADB8" rx="2" opacity="0.7"/>
+  <rect x="65" y="135" width="45" height="55" fill="#7BADB8" rx="2" opacity="0.7"/>
+  <rect x="289" y="135" width="45" height="55" fill="#7BADB8" rx="2" opacity="0.7"/>
+  <!-- Ground -->
+  <rect x="0" y="310" width="400" height="70" fill="#254E45"/>
+  <!-- Worker 1 (left) - standing proud, roller at side -->
+  <!-- Legs -->
+  <rect x="112" y="300" width="13" height="40" fill="#1A1A1A" rx="2"/>
+  <rect x="130" y="300" width="13" height="40" fill="#1A1A1A" rx="2"/>
+  <!-- Torso -->
+  <rect x="108" y="248" width="42" height="56" fill="#254E45" rx="4"/>
+  <rect x="108" y="262" width="6" height="28" fill="#C09040" rx="2"/>
+  <!-- Head -->
+  <circle cx="129" cy="234" r="17" fill="#3D1F0A"/>
+  <!-- Hard hat off, held -->
+  <ellipse cx="95" cy="272" rx="16" ry="8" fill="#C09040"/>
+  <!-- Arms -->
+  <line x1="108" y1="264" x2="90" y2="260" stroke="#3D1F0A" stroke-width="9" stroke-linecap="round"/>
+  <line x1="150" y1="264" x2="162" y2="280" stroke="#3D1F0A" stroke-width="9" stroke-linecap="round"/>
+  <!-- Roller at side -->
+  <line x1="162" y1="280" x2="168" y2="310" stroke="#6B6560" stroke-width="3"/>
+  <rect x="162" y="308" width="14" height="6" fill="#EDE7DB" rx="2"/>
+  <!-- Worker 2 (right) - similar pose -->
+  <rect x="248" y="300" width="13" height="40" fill="#1A1A1A" rx="2"/>
+  <rect x="266" y="300" width="13" height="40" fill="#1A1A1A" rx="2"/>
+  <rect x="244" y="248" width="42" height="56" fill="#254E45" rx="4"/>
+  <rect x="272" y="262" width="6" height="28" fill="#C09040" rx="2"/>
+  <circle cx="265" cy="234" r="17" fill="#5C2E0A"/>
+  <ellipse cx="295" cy="268" rx="16" ry="8" fill="#C09040"/>
+  <line x1="244" y1="264" x2="232" y2="280" stroke="#5C2E0A" stroke-width="9" stroke-linecap="round"/>
+  <line x1="286" y1="264" x2="298" y2="258" stroke="#5C2E0A" stroke-width="9" stroke-linecap="round"/>
+  <line x1="228" y1="280" x2="222" y2="310" stroke="#6B6560" stroke-width="3"/>
+  <rect x="216" y="308" width="14" height="6" fill="#EDE7DB" rx="2"/>
+  <!-- Completion checkmark / star -->
+  <circle cx="200" cy="170" r="22" fill="rgba(192,144,64,0.2)" stroke="#C09040" stroke-width="1.5"/>
+  <text x="200" y="178" font-size="18" text-anchor="middle" fill="#C09040">✓</text>
+  <!-- Footer text -->
+  <text x="200" y="370" font-family="serif" font-size="9" fill="rgba(247,242,234,0.4)" text-anchor="middle" letter-spacing="3">CHROMA BY TETRUX</text>
+</svg>
+      <div class="team-card-info">
+        <div class="team-card-role">Completion — Site Ready</div>
+        <div class="team-card-desc">Job done. Site cleared. Your home looking exactly the way you agreed it would.</div>
+      </div>
     </div>
   </div>
 </div>
@@ -538,7 +749,7 @@
 <section class="section how-it-works on-dark" id="process">
   <p class="lbl">The Chroma Process</p>
   <h2 class="sh">How we get your<br><em>colours exactly right.</em></h2>
-  <p class="sb">No guesswork. No surprises. Before we purchase a single tin of paint, you have seen exactly how your space will look, confirmed every colour in writing, and approved the palette. This is how Chroma protects your investment and your home.</p>
+  <p class="sb">You see exactly how your space will look before we open a single tin of paint. Every colour confirmed. Every shade approved in writing. No surprises on the day.</p>
   <div class="steps-wrap">
     <div class="step-nav" id="stepsNav">
       <div class="step-tab active" onclick="showStep(0)"><span class="step-num">01</span><span class="step-lbl">Intake &amp; Site Visit</span></div>
@@ -556,7 +767,7 @@
       <div class="step-content" data-i="3"><div class="step-big-num">04</div><h3 class="step-title">Colour Board Presentation</h3><p class="step-body">We build a branded Chroma Colour Board PDF with all three palette options. Each option shows colour swatches, the palette name, the rationale, and exact paint codes. We also apply each palette to photos of your actual room so you see how it reads in your specific light before making any decision.</p><span class="step-tag">Branded Colour Board PDF</span></div>
       <div class="step-content" data-i="4"><div class="step-big-num">05</div><h3 class="step-title">Client Approval</h3><p class="step-body">You choose your palette, or request a hybrid. Adjustments are made. Once you are satisfied, you confirm in writing. That confirmation is the point of no return. Not a single tin of paint is purchased until we have it. This protects you and protects us.</p><span class="step-tag">Written approval before any purchase</span></div>
       <div class="step-content" data-i="5"><div class="step-big-num">06</div><h3 class="step-title">Precision Mixing &amp; Execution</h3><p class="step-body">Your approved colour codes go to a Dulux or Berger store tinting machine. The exact colour is mixed from your specification. On Day 1 we apply a test panel on your actual wall and confirm it in both morning and evening light before the full job begins.</p><span class="step-tag">Tinting machine precision</span></div>
-      <div class="step-content" data-i="6"><div class="step-big-num">07</div><h3 class="step-title">Completion &amp; Warranty</h3><p class="step-body">We complete a full quality inspection before calling you for the walkthrough. Every edge, every surface, every fitting checked. You walk through the finished space with us. Any punch list items are addressed before we leave. Every Chroma job carries a 6-month touch-up warranty on workmanship, standard.</p><span class="step-tag">6-month warranty included</span></div>
+      <div class="step-content" data-i="6"><div class="step-big-num">07</div><h3 class="step-title">Completion &amp; Warranty</h3><p class="step-body">Before we call you for the final walkthrough, we inspect every surface ourselves. Every edge, every ceiling line, every fitting. Anything that is not right gets fixed before you sign off. Every Chroma job carries a 6-month touch-up warranty on workmanship, standard.</p><span class="step-tag">6-month warranty included</span></div>
     </div>
   </div>
 </section>
@@ -592,7 +803,7 @@
 <!-- PHOTO FEATURE -->
 <div class="photo-feature">
   <div class="pf-img">
-    <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?auto=format&fit=crop&w=900&q=80" alt="Premium painted interior" loading="lazy" />
+    <img src="https://images.unsplash.com/photo-1562113530-57ba467cea38?auto=format&fit=crop&w=900&q=80" alt="Premium painted interior" loading="lazy" />
   </div>
   <div class="pf-content">
     <p class="lbl">The Chroma Standard</p>
@@ -600,7 +811,7 @@
     <p class="sb">The difference between a good paint job and a Chroma job is not just the colour. It is the preparation. The patience. The precision at every edge and corner. The care taken with your home as though it were our own.</p>
     <div class="pf-quotes">
       <div class="pfq"><span class="pfq-mark">"</span><span class="pfq-text">Clean execution means every corner, every skirting board, every ceiling line finished as though it will be inspected up close. Because it will be.</span></div>
-      <div class="pfq"><span class="pfq-mark">"</span><span class="pfq-text">We do not move to the next coat until the previous one is fully dry. Premium clients notice when this rule is broken.</span></div>
+      <div class="pfq"><span class="pfq-mark">"</span><span class="pfq-text">Every coat is allowed to dry fully before the next goes on. It shows in the finish. Every time.</span></div>
     </div>
   </div>
 </div>
@@ -612,7 +823,7 @@
   <div class="why-grid">
     <div class="why-card"><div class="why-icon">◆</div><h4 class="why-title">Expert Colour Consultation</h4><p class="why-body">You receive a professionally curated Colour Board with three palette options applied to your actual space before anything is purchased. No other residential painter in Lagos delivers this.</p></div>
     <div class="why-card"><div class="why-icon">✓</div><h4 class="why-title">6-Month Warranty, Standard</h4><p class="why-body">Every job carries a 6-month touch-up warranty on workmanship. Not an upgrade, not a premium tier. Standard, on every project, every time.</p></div>
-    <div class="why-card"><div class="why-icon">★</div><h4 class="why-title">Salaried, Trained Team</h4><p class="why-body">Our painters are employed by Chroma, not sourced per job. They go through a structured training programme and work to written brand standards on every site.</p></div>
+    <div class="why-card"><div class="why-icon">★</div><h4 class="why-title">Our Team</h4><p class="why-body">Our team is equipped to Chroma's highest standards. Uniformed, professional, and focused entirely on delivering results that reflect well on your home.</p></div>
     <div class="why-card"><div class="why-icon">◎</div><h4 class="why-title">Premium Materials Only</h4><p class="why-body">We specify Dulux, Berger, and Jotun. Colours are mixed by tinting machine to exact codes. We do not substitute products without your explicit approval.</p></div>
     <div class="why-card"><div class="why-icon">→</div><h4 class="why-title">Written Approval at Every Stage</h4><p class="why-body">Colour confirmed before paint is purchased. Completion signed off before we leave. Every stage documented. Disputes do not arise when expectations are set clearly from day one.</p></div>
     <div class="why-card"><div class="why-icon">◉</div><h4 class="why-title">50/50 Payment Structure</h4><p class="why-body">Fifty percent on signing. Fifty percent on completion and walkthrough sign-off. You do not pay the balance until you are satisfied with the finished result.</p></div>
@@ -677,7 +888,7 @@
       <div class="pcard">
         <div class="ph"><div class="pname">3-Storey &amp; Above</div><div class="pdesc">Triplex, townhouse, or maisonette. Three or more floors.</div></div>
         <div class="pamount"><span class="pfrom">From</span><div class="pprice">NGN 1M – 2M+</div></div>
-        <ul class="pitems"><li>Colour strategy per floor zone</li><li>Feature walls and accent rooms</li><li>All floors, staircases, and landings</li><li>Founder sign-off before handover</li><li>6-month touch-up warranty</li></ul>
+        <ul class="pitems"><li>Colour strategy per floor zone</li><li>Feature walls and accent rooms</li><li>All floors, staircases, and landings</li><li>Senior quality review before handover</li><li>6-month touch-up warranty</li></ul>
         <div class="pcta"><a href="#contact" class="pbtn pbtn-out">Request a Quote</a></div>
       </div>
     </div>
@@ -721,15 +932,15 @@
   <div class="mkt-grid">
     <div class="mkt-card">
       <div class="mkt-status active">Active Now</div>
-      <div class="mkt-title">Lagos, Nigeria</div>
-      <p class="mkt-body">Our primary market. We serve upper-middle and affluent homeowners across Lagos. Demand for premium, reliable home finishing services here is significant and growing. Chroma was built specifically for this market.</p>
-      <div class="mkt-tags"><span class="mkt-tag">Victoria Island</span><span class="mkt-tag">Ikoyi</span><span class="mkt-tag">Lekki</span><span class="mkt-tag">Banana Island</span><span class="mkt-tag">Magodo</span><span class="mkt-tag">Ikeja GRA</span></div>
+      <div class="mkt-title">Nigeria</div>
+      <p class="mkt-body">We serve upper-middle and affluent homeowners across Nigeria's major cities. Lagos, Abuja, Port Harcourt, and beyond. Demand for premium, reliable home finishing is significant and growing across the country.</p>
+      <div class="mkt-tags"><span class="mkt-tag">Lagos</span><span class="mkt-tag">Abuja</span><span class="mkt-tag">Port Harcourt</span><span class="mkt-tag">Ikoyi</span><span class="mkt-tag">Lekki</span><span class="mkt-tag">Banana Island</span><span class="mkt-tag">Maitama</span><span class="mkt-tag">Asokoro</span><span class="mkt-tag">GRA PH</span></div>
     </div>
     <div class="mkt-card">
       <div class="mkt-status expand">Expanding</div>
       <div class="mkt-title">West Africa</div>
-      <p class="mkt-body">Chroma is designed to scale. As Lagos operations mature, we will replicate the model across West African cities with the same premium standards and structured execution. Built for this from day one.</p>
-      <div class="mkt-tags"><span class="mkt-tag">Abuja</span><span class="mkt-tag">Port Harcourt</span><span class="mkt-tag">Accra</span><span class="mkt-tag">Abidjan</span></div>
+      <p class="mkt-body">As Nigerian operations mature, Chroma will replicate the model across West African cities with the same premium standards. The brand is built for regional scale from day one.</p>
+      <div class="mkt-tags"><span class="mkt-tag">Accra</span><span class="mkt-tag">Abidjan</span><span class="mkt-tag">Lomé</span><span class="mkt-tag">Dakar</span></div>
     </div>
   </div>
 </div>
@@ -762,7 +973,7 @@
       <div class="channels">
         <div class="channel"><div class="ch-icon">📱</div><div><div class="ch-lbl">WhatsApp</div><div class="ch-val">Message us to book</div></div></div>
         <div class="channel"><div class="ch-icon">📸</div><div><div class="ch-lbl">Instagram</div><div class="ch-val">@chromabytetrux</div></div></div>
-        <div class="channel"><div class="ch-icon">📍</div><div><div class="ch-lbl">Service Area</div><div class="ch-val">Lagos, Nigeria</div></div></div>
+        <div class="channel"><div class="ch-icon">📍</div><div><div class="ch-lbl">Service Area</div><div class="ch-val">Nigeria — Lagos, Abuja, Port Harcourt</div></div></div>
       </div>
       <div class="c-promise">
         <p class="c-promise-text">"We reply within 2 hours. Every inquiry. That is not a target, it is a standard."</p>
@@ -789,7 +1000,7 @@
     <div>
       <div class="ft-name">Chroma by Tetrux</div>
       <div class="ft-parent">A Tetrux Brand</div>
-      <p class="ft-desc">Premium decorative painting and expert colour consultation for Lagos homeowners. We consult. We commit. We deliver.</p>
+      <p class="ft-desc">Premium decorative painting and expert colour consultation for homeowners across Nigeria. We consult. We commit. We deliver.</p>
     </div>
     <div>
       <p class="ft-col-title">Services</p>
@@ -801,7 +1012,7 @@
     </div>
     <div>
       <p class="ft-col-title">Contact</p>
-      <ul class="ft-links"><li><a href="#contact">Book a Site Visit</a></li><li><a href="#">WhatsApp Us</a></li><li><a href="#">Instagram</a></li><li><a href="#">Lagos, Nigeria</a></li></ul>
+      <ul class="ft-links"><li><a href="#contact">Book a Site Visit</a></li><li><a href="#">WhatsApp Us</a></li><li><a href="#">Instagram</a></li><li><a href="#">Lagos · Abuja · Port Harcourt</a></li></ul>
     </div>
   </div>
   <div class="ft-bottom">
