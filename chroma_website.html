@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chroma by Tetrux — Color, Crafted for You.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #F7F2EA;
+      --cream-light: #FEFCF7;
+      --cream-mid: #EDE7DB;
+      --forest: #1A3630;
+      --forest-mid: #254E45;
+      --gold: #C09040;
+      --gold-light: #D4A85A;
+      --terracotta: #C75A42;
+      --teal-muted: #6E9B96;
+      --text-dark: #1A1A1A;
+      --text-mid: #4A4540;
+      --text-light: #7A736C;
+      --white: #FEFCF8;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text-dark); overflow-x: hidden; }
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; line-height: 1.2; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.25rem 3rem; display: flex; align-items: center; justify-content: space-between; transition: background 0.35s, box-shadow 0.35s, padding 0.35s; }
+    nav.scrolled { background: var(--cream-light); box-shadow: 0 1px 0 rgba(0,0,0,0.08); padding: 0.9rem 3rem; }
+    .nav-logo { display: flex; flex-direction: column; line-height: 1; text-decoration: none; }
+    .nav-logo-main { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--forest); letter-spacing: -0.02em; }
+    .nav-logo-sub { font-size: 0.65rem; color: var(--gold); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 1px; }
+    .nav-links { display: flex; gap: 2.25rem; list-style: none; }
+    .nav-links a { font-size: 0.875rem; color: var(--text-mid); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--forest); }
+    .nav-cta { background: var(--forest) !important; color: var(--cream) !important; padding: 0.6rem 1.4rem !important; border-radius: 2px; font-size: 0.8rem !important; font-weight: 500 !important; letter-spacing: 0.04em; text-transform: uppercase; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { display: block; width: 24px; height: 2px; background: var(--forest); }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; background: var(--cream); overflow: hidden; }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 9rem 4rem 5rem 5rem; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.75rem; }
+    .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
+    .hero-headline { font-size: clamp(2.5rem, 4.5vw, 4rem); font-weight: 600; color: var(--forest); line-height: 1.12; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+    .hero-headline em { font-style: italic; color: var(--terracotta); }
+    .hero-subline { font-size: 1.05rem; font-weight: 300; line-height: 1.7; color: var(--text-mid); max-width: 430px; margin-bottom: 2.5rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { display: inline-block; background: var(--forest); color: var(--cream); padding: 0.85rem 2rem; border-radius: 2px; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, transform 0.2s; border: 2px solid var(--forest); cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .btn-primary:hover { background: var(--forest-mid); border-color: var(--forest-mid); transform: translateY(-1px); }
+    .btn-secondary { display: inline-block; background: transparent; color: var(--forest); padding: 0.85rem 2rem; border-radius: 2px; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; border: 2px solid var(--forest); transition: all 0.2s; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+    .btn-secondary:hover { background: var(--forest); color: var(--cream); transform: translateY(-1px); }
+    .hero-tagline { margin-top: 3.5rem; padding-top: 2rem; border-top: 1px solid rgba(26,54,48,0.12); font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; color: var(--text-light); }
+    .hero-right { position: relative; overflow: hidden; background: var(--forest); }
+    .blob { position: absolute; border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%; animation: morph 8s ease-in-out infinite; }
+    .blob-1 { width: 65%; height: 65%; top: -10%; right: -10%; background: var(--terracotta); opacity: 0.9; }
+    .blob-2 { width: 55%; height: 55%; bottom: -15%; left: -5%; background: var(--gold); opacity: 0.75; animation-delay: -3s; border-radius: 45% 55% 50% 50% / 55% 45% 55% 45%; }
+    .blob-3 { width: 40%; height: 40%; top: 30%; left: 15%; background: var(--teal-muted); opacity: 0.55; animation-delay: -5s; }
+    .blob-4 { width: 30%; height: 30%; bottom: 15%; right: 10%; background: var(--cream); opacity: 0.1; animation-delay: -2s; }
+    .hero-right-content { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end; height: 100%; padding: 3rem; }
+    .hero-swatches { display: flex; gap: 0.6rem; margin-bottom: 1.5rem; }
+    .swatch { width: 48px; height: 48px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.25); transition: transform 0.2s; cursor: pointer; }
+    .swatch:hover { transform: scale(1.15); }
+    .sw1 { background: var(--terracotta); } .sw2 { background: #8B5E3C; } .sw3 { background: var(--teal-muted); }
+    .sw4 { background: var(--gold); } .sw5 { background: #C4B49A; } .sw6 { background: #4A7C74; }
+    .hero-right-label { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 0.4rem; }
+    .hero-right-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: rgba(255,255,255,0.92); font-style: italic; }
+    @keyframes morph { 0%,100% { border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%; transform: translate(0,0) rotate(0deg); } 33% { border-radius: 45% 55% 40% 60% / 60% 40% 60% 40%; transform: translate(10px,-15px) rotate(3deg); } 66% { border-radius: 55% 45% 60% 40% / 45% 60% 45% 55%; transform: translate(-8px,10px) rotate(-2deg); } }
+
+    /* PROMISE STRIP */
+    .promise-strip { background: var(--forest); padding: 3.5rem 5rem; display: grid; grid-template-columns: repeat(3,1fr); gap: 2rem; }
+    .promise-item { text-align: center; }
+    .promise-number { font-family: 'Playfair Display', serif; font-size: 2rem; font-style: italic; color: var(--gold); display: block; margin-bottom: 0.5rem; }
+    .promise-word { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; color: var(--cream); display: block; margin-bottom: 0.5rem; }
+    .promise-desc { font-size: 0.85rem; color: rgba(247,242,234,0.6); line-height: 1.6; max-width: 220px; margin: 0 auto; }
+
+    /* SECTIONS */
+    .section { padding: 6rem 5rem; opacity: 0; transform: translateY(28px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .section.visible { opacity: 1; transform: translateY(0); }
+
+    /* Label on LIGHT bg */
+    .lbl { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    .lbl::before { content: ''; display: inline-block; width: 22px; height: 1px; background: var(--gold); }
+
+    /* Label on DARK bg — white override */
+    .on-dark .lbl { color: rgba(255,255,255,0.88) !important; }
+    .on-dark .lbl::before { background: rgba(255,255,255,0.45) !important; }
+    .on-dark .sh { color: #fff !important; }
+    .on-dark .sh em { color: var(--gold-light) !important; }
+    .on-dark .sb { color: rgba(247,242,234,0.65) !important; }
+
+    /* Direct overrides for markets and pricing — belt and braces */
+    .markets .lbl { color: #fff !important; }
+    .markets .lbl::before { background: rgba(255,255,255,0.5) !important; }
+    .markets .sh { color: #fff !important; }
+    .markets .sh em { color: var(--gold-light) !important; font-style: italic; }
+    .pricing .lbl { color: var(--forest) !important; }
+    .pricing .lbl::before { background: var(--forest) !important; }
+    .pricing .sh { color: var(--forest) !important; }
+
+    .sh { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem,3vw,2.75rem); font-weight: 600; color: var(--forest); line-height: 1.2; margin-bottom: 1.25rem; letter-spacing: -0.02em; }
+    .sh em { font-style: italic; color: var(--terracotta); }
+    .sb { font-size: 1.05rem; font-weight: 300; line-height: 1.8; color: var(--text-mid); max-width: 640px; }
+
+    /* ABOUT */
+    .about { background: var(--cream-light); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .about-img { position: relative; height: 520px; border-radius: 3px; overflow: hidden; }
+    .about-img img { width: 100%; height: 100%; object-fit: cover; }
+    .about-caption { position: absolute; bottom: 1.5rem; left: 1.5rem; background: rgba(26,54,48,0.9); backdrop-filter: blur(6px); color: var(--cream); padding: 0.75rem 1.25rem; border-radius: 2px; }
+    .about-caption strong { font-family: 'Playfair Display', serif; font-size: 1rem; display: block; }
+    .about-caption span { font-size: 0.72rem; color: rgba(247,242,234,0.65); }
+
+    /* GALLERY */
+    .gallery { background: var(--cream); padding: 5rem; }
+    .gallery-lbl { font-size: 0.68rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+    .gallery-lbl::before { content: ''; display: inline-block; width: 22px; height: 1px; background: var(--gold); }
+    .gallery-h { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem,3vw,2.75rem); font-weight: 600; color: var(--forest); margin-bottom: 0.5rem; letter-spacing: -0.02em; }
+    .gallery-h em { font-style: italic; color: var(--terracotta); }
+    .gallery-sub { font-size: 1rem; font-weight: 300; color: var(--text-mid); margin-bottom: 2.5rem; }
+    .gallery-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 280px 280px; gap: 0.75rem; }
+    .g-item { position: relative; overflow: hidden; border-radius: 3px; }
+    .g-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; display: block; }
+    .g-item:hover img { transform: scale(1.04); }
+    .g-item.tall { grid-row: span 2; }
+    .g-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,54,48,0.7) 0%, transparent 55%); opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 1.25rem; }
+    .g-item:hover .g-overlay { opacity: 1; }
+    .g-overlay span { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--cream); font-style: italic; }
+
+    /* SERVICES */
+    .services { background: var(--cream); }
+    .svc-hdr { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 3.5rem; align-items: end; }
+    .svc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .svc-card { background: var(--cream-light); border: 1px solid var(--cream-mid); padding: 2.5rem; border-radius: 3px; position: relative; overflow: hidden; transition: transform 0.25s, box-shadow 0.25s; }
+    .svc-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(26,54,48,0.1); }
+    .svc-accent { position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .svc-card:first-child .svc-accent { background: var(--terracotta); }
+    .svc-card:last-child .svc-accent { background: var(--gold); }
+    .svc-icon { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.1rem; }
+    .svc-card:first-child .svc-icon { background: rgba(199,90,66,0.1); color: var(--terracotta); }
+    .svc-card:last-child .svc-icon { background: rgba(192,144,64,0.1); color: var(--gold); }
+    .svc-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 600; color: var(--forest); margin-bottom: 0.75rem; }
+    .svc-desc { font-size: 0.92rem; line-height: 1.75; color: var(--text-mid); font-weight: 300; margin-bottom: 1.5rem; }
+    .svc-list { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 2rem; }
+    .svc-list li { font-size: 0.82rem; color: var(--text-mid); display: flex; align-items: center; gap: 0.6rem; }
+    .svc-list li::before { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .svc-price { font-size: 0.75rem; color: var(--text-light); border-top: 1px solid var(--cream-mid); padding-top: 1rem; }
+    .svc-price strong { font-size: 1rem; color: var(--forest); font-family: 'Playfair Display', serif; }
+
+    /* HOW IT WORKS */
+    .how-it-works { background: var(--forest); }
+    .steps-wrap { margin-top: 3.5rem; display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
+    .step-nav { display: flex; flex-direction: column; }
+    .step-tab { display: flex; align-items: center; gap: 1.25rem; padding: 1.25rem 1.5rem; cursor: pointer; border-left: 2px solid rgba(247,242,234,0.1); transition: border-color 0.2s, background 0.2s; border-radius: 0 3px 3px 0; }
+    .step-tab.active { border-left-color: var(--gold); background: rgba(247,242,234,0.05); }
+    .step-num { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-style: italic; color: var(--gold); min-width: 28px; opacity: 0.5; transition: opacity 0.2s; }
+    .step-tab.active .step-num { opacity: 1; }
+    .step-lbl { font-size: 0.88rem; color: rgba(247,242,234,0.5); transition: color 0.2s; }
+    .step-tab.active .step-lbl { color: var(--cream); font-weight: 500; }
+    .step-box { background: rgba(247,242,234,0.05); border: 1px solid rgba(247,242,234,0.1); border-radius: 3px; padding: 2.5rem; min-height: 320px; }
+    .step-content { display: none; }
+    .step-content.active { display: block; animation: fadeUp 0.3s ease; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .step-big-num { font-family: 'Playfair Display', serif; font-size: 3.5rem; font-style: italic; color: var(--gold); opacity: 0.3; line-height: 1; margin-bottom: 1rem; }
+    .step-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 600; color: var(--cream); margin-bottom: 1rem; }
+    .step-body { font-size: 0.92rem; line-height: 1.8; color: rgba(247,242,234,0.7); font-weight: 300; margin-bottom: 1.25rem; }
+    .step-tag { display: inline-block; background: rgba(192,144,64,0.15); color: var(--gold-light); padding: 0.3rem 0.75rem; border-radius: 2px; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; }
+
+    /* WHY CHROMA */
+    .why-chroma { background: var(--cream-light); }
+    .why-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+    .why-card { padding: 2rem; background: var(--white); border: 1px solid var(--cream-mid); border-radius: 3px; transition: transform 0.25s; }
+    .why-card:hover { transform: translateY(-3px); }
+    .why-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+    .why-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--forest); margin-bottom: 0.6rem; }
+    .why-body { font-size: 0.86rem; line-height: 1.75; color: var(--text-mid); font-weight: 300; }
+
+    /* PRICING */
+    .pricing { background: var(--cream); }
+    .pricing-top { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 2rem; align-items: end; }
+    .ptabs { display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .ptab { padding: 0.5rem 1.25rem; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.04em; border: 1.5px solid var(--cream-mid); border-radius: 2px; cursor: pointer; transition: all 0.2s; color: var(--text-light); background: transparent; font-family: 'DM Sans', sans-serif; }
+    .ptab.active { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+    .ppane { display: none; }
+    .ppane.active { display: block; }
+    .pcards { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.25rem; }
+    .pcard { border: 1px solid var(--cream-mid); border-radius: 3px; overflow: hidden; background: var(--white); transition: box-shadow 0.25s, transform 0.25s; }
+    .pcard:hover { box-shadow: 0 8px 32px rgba(26,54,48,0.1); transform: translateY(-3px); }
+    .pcard.feat { border-color: var(--forest); box-shadow: 0 4px 24px rgba(26,54,48,0.12); }
+    .ph { padding: 1.75rem 1.75rem 1.25rem; }
+    .pcard.feat .ph { background: var(--forest); }
+    .pbadge { display: inline-block; background: var(--gold); color: var(--forest); font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 1px; margin-bottom: 0.75rem; }
+    .pname { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 600; color: var(--forest); margin-bottom: 0.35rem; }
+    .pcard.feat .pname { color: var(--cream); }
+    .pdesc { font-size: 0.8rem; color: var(--text-light); line-height: 1.5; }
+    .pcard.feat .pdesc { color: rgba(247,242,234,0.6); }
+    .pamount { padding: 1.25rem 1.75rem; border-bottom: 1px solid var(--cream-mid); }
+    .pcard.feat .pamount { border-color: rgba(247,242,234,0.15); }
+    .pfrom { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); display: block; }
+    .pcard.feat .pfrom { color: rgba(247,242,234,0.5); }
+    .pprice { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--forest); }
+    .pcard.feat .pprice { color: var(--cream); }
+    .pitems { padding: 1.25rem 1.75rem; list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .pitems li { font-size: 0.82rem; color: var(--text-mid); display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.5; }
+    .pitems li::before { content: '✓'; color: var(--gold); font-size: 0.75rem; flex-shrink: 0; margin-top: 1px; }
+    .pcard.feat .pitems li { color: rgba(247,242,234,0.75); }
+    .pcta { padding: 1.25rem 1.75rem 1.75rem; }
+    .pbtn { display: block; text-align: center; padding: 0.75rem; border-radius: 2px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; cursor: pointer; border: none; }
+    .pbtn-out { border: 2px solid var(--forest); color: var(--forest); background: transparent; }
+    .pbtn-out:hover { background: var(--forest); color: var(--cream); }
+    .pbtn-fill { background: var(--gold); color: var(--forest); border: 2px solid var(--gold); }
+    .pbtn-fill:hover { background: var(--gold-light); border-color: var(--gold-light); }
+    .storey-addon { margin-top: 2rem; background: var(--forest); border-radius: 3px; padding: 1.75rem 2rem; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center; }
+    .storey-text strong { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--cream); display: block; margin-bottom: 0.3rem; }
+    .storey-text span { font-size: 0.85rem; color: rgba(247,242,234,0.6); line-height: 1.6; }
+    .storey-price .big { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--gold-light); display: block; }
+    .storey-price .lbl { font-size: 0.7rem; color: rgba(247,242,234,0.5); letter-spacing: 0.08em; text-transform: uppercase; }
+    .storey-price { text-align: right; }
+    .pnote { margin-top: 1.75rem; font-size: 0.82rem; color: var(--text-light); text-align: center; }
+
+    /* EXTERIOR STRIP */
+    .exterior-strip { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+    .ext-item { position: relative; height: 480px; overflow: hidden; }
+    .ext-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease; }
+    .ext-item:hover img { transform: scale(1.03); }
+    .ext-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,54,48,0.82) 0%, transparent 50%); display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem 2.5rem; }
+    .ext-tag { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 0.5rem; }
+    .ext-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; color: #fff; line-height: 1.2; margin-bottom: 0.4rem; }
+    .ext-desc { font-size: 0.82rem; color: rgba(247,242,234,0.65); font-weight: 300; max-width: 320px; }
+    @media(max-width:768px){ .exterior-strip{grid-template-columns:1fr} .ext-item{height:320px} }
+    .board-section { background: var(--cream-light); display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .board-widget { background: var(--white); border: 1px solid var(--cream-mid); border-radius: 4px; padding: 2rem; box-shadow: 0 8px 40px rgba(0,0,0,0.07); }
+    .bw-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--cream-mid); }
+    .bw-title { font-family: 'Playfair Display', serif; font-size: 0.9rem; font-weight: 600; color: var(--forest); }
+    .bw-brand { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-light); }
+    .pal { margin-bottom: 1.5rem; cursor: pointer; }
+    .pal:last-of-type { margin-bottom: 0; }
+    .pal-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.6rem; }
+    .pal-name { font-size: 0.78rem; font-weight: 500; color: var(--forest); }
+    .pal-tag { font-size: 0.65rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); }
+    .pal-swatches { display: flex; height: 36px; border-radius: 3px; overflow: hidden; transition: transform 0.2s; }
+    .pal:hover .pal-swatches { transform: scaleY(1.08); }
+    .ps { flex: 1; }
+    .p1a{background:#E8C9A0}.p1b{background:#C9974A}.p1c{background:#3B5E57}.p1d{background:#1A3630}.p1e{background:#F2EDE4}
+    .p2a{background:#EDE8DF}.p2b{background:#D4C9B8}.p2c{background:#8B7355}.p2d{background:#C8614A}.p2e{background:#4A3B32}
+    .p3a{background:#2A4858}.p3b{background:#4A7C8A}.p3c{background:#7BADB8}.p3d{background:#C4B49A}.p3e{background:#F0E8DC}
+    .sel-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); display: none; }
+    .pal.selected .sel-dot { display: block; }
+    .bw-footer { margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid var(--cream-mid); display: flex; justify-content: space-between; align-items: center; }
+    .bw-note { font-size: 0.72rem; color: var(--text-light); font-style: italic; }
+    .bw-badge { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); background: rgba(192,144,64,0.1); padding: 0.25rem 0.6rem; border-radius: 2px; }
+
+    /* PHOTO FEATURE */
+    .photo-feature { display: grid; grid-template-columns: 1.1fr 1fr; }
+    .pf-img { position: relative; min-height: 560px; overflow: hidden; }
+    .pf-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pf-content { background: var(--forest); padding: 5rem 4rem; display: flex; flex-direction: column; justify-content: center; }
+    .pf-content .lbl { color: rgba(255,255,255,0.8); }
+    .pf-content .lbl::before { background: rgba(255,255,255,0.4); }
+    .pf-content .sh { color: #fff; font-size: clamp(1.8rem,2.5vw,2.5rem); margin-bottom: 1.25rem; }
+    .pf-content .sh em { color: var(--gold-light); }
+    .pf-content .sb { color: rgba(247,242,234,0.65); font-size: 0.95rem; }
+    .pf-quotes { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1.25rem; }
+    .pfq { display: flex; align-items: flex-start; gap: 0.85rem; }
+    .pfq-mark { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 2rem; line-height: 0.8; flex-shrink: 0; }
+    .pfq-text { font-size: 0.875rem; color: rgba(247,242,234,0.75); line-height: 1.65; font-style: italic; }
+
+    /* MARKETS */
+    .markets { background: var(--forest); padding: 6rem 5rem; }
+    .mkt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem; }
+    .mkt-card { background: rgba(247,242,234,0.06); border: 1px solid rgba(247,242,234,0.12); border-radius: 3px; padding: 2rem; }
+    .mkt-status { font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.4rem; }
+    .mkt-status.active::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #5FB87A; display: inline-block; }
+    .mkt-status.expand::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); display: inline-block; }
+    .mkt-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 600; color: var(--cream); margin-bottom: 0.5rem; }
+    .mkt-body { font-size: 0.88rem; color: rgba(247,242,234,0.6); line-height: 1.7; font-weight: 300; }
+    .mkt-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.25rem; }
+    .mkt-tag { font-size: 0.72rem; background: rgba(247,242,234,0.08); color: rgba(247,242,234,0.65); border: 1px solid rgba(247,242,234,0.15); padding: 0.25rem 0.65rem; border-radius: 2px; }
+
+    /* PARENT */
+    .parent { background: var(--cream-mid); padding: 4rem 5rem; display: grid; grid-template-columns: 2fr 1fr; gap: 4rem; align-items: center; }
+    .parent-lbl { font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.75rem; }
+    .parent-title { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; color: var(--forest); margin-bottom: 0.5rem; }
+    .parent-tag { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-light); margin-bottom: 1.25rem; font-style: italic; }
+    .parent-body { font-size: 0.92rem; line-height: 1.75; color: var(--text-mid); font-weight: 300; }
+    .parent-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; color: var(--forest); text-decoration: none; font-weight: 500; margin-top: 1rem; border-bottom: 1px solid var(--forest); padding-bottom: 1px; transition: color 0.2s; }
+    .parent-link:hover { color: var(--gold); border-color: var(--gold); }
+    .pillars { display: flex; flex-direction: column; gap: 0.75rem; }
+    .pillar { background: var(--white); border: 1px solid rgba(0,0,0,0.05); padding: 0.9rem 1.1rem; border-radius: 2px; font-size: 0.8rem; color: var(--text-mid); display: flex; align-items: center; gap: 0.75rem; }
+    .pillar-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+
+    /* CONTACT */
+    .contact { background: var(--cream); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .fg { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
+    .fg label { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-mid); }
+    .fg input, .fg select, .fg textarea { background: var(--white); border: 1px solid var(--cream-mid); border-radius: 2px; padding: 0.75rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text-dark); outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--forest); }
+    .fg textarea { min-height: 100px; resize: vertical; }
+    .channels { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2rem; }
+    .channel { display: flex; align-items: center; gap: 1rem; }
+    .ch-icon { width: 42px; height: 42px; background: var(--cream-mid); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
+    .ch-lbl { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.15rem; }
+    .ch-val { font-size: 0.92rem; color: var(--forest); font-weight: 500; }
+    .c-promise { margin-top: 2.5rem; padding: 1.5rem; background: var(--forest); border-radius: 3px; }
+    .c-promise-text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 0.95rem; color: rgba(247,242,234,0.85); line-height: 1.6; }
+    .c-promise-note { font-size: 0.72rem; color: var(--gold); margin-top: 0.6rem; }
+
+    /* FOOTER */
+    footer { background: var(--text-dark); padding: 3.5rem 5rem 2rem; }
+    .ft { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; padding-bottom: 2.5rem; border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 2rem; }
+    .ft-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--cream); margin-bottom: 0.25rem; }
+    .ft-parent { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .ft-desc { font-size: 0.82rem; line-height: 1.7; color: rgba(255,255,255,0.4); font-weight: 300; }
+    .ft-col-title { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.35); margin-bottom: 1.25rem; }
+    .ft-links { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .ft-links a { font-size: 0.85rem; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+    .ft-links a:hover { color: var(--cream); }
+    .ft-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 0.75rem; color: rgba(255,255,255,0.3); }
+    .ft-italic { font-style: italic; color: rgba(255,255,255,0.45); }
+
+    /* TOAST */
+    .toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--forest); color: var(--cream); padding: 1rem 1.5rem; border-radius: 3px; font-size: 0.875rem; box-shadow: 0 4px 20px rgba(0,0,0,0.2); z-index: 9999; transform: translateY(100px); opacity: 0; transition: all 0.35s; }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* MOBILE NAV */
+    .mob-nav { display: none; position: fixed; inset: 0; background: var(--cream-light); z-index: 999; padding: 6rem 2rem 2rem; flex-direction: column; gap: 1.5rem; }
+    .mob-nav.open { display: flex; }
+    .mob-nav a { font-family: 'Playfair Display', serif; font-size: 1.75rem; font-weight: 500; color: var(--forest); text-decoration: none; opacity: 0; transform: translateX(-20px); animation: slideIn 0.3s forwards; }
+    @keyframes slideIn { to { opacity: 1; transform: translateX(0); } }
+    .mob-nav a:nth-child(1){animation-delay:.05s}.mob-nav a:nth-child(2){animation-delay:.1s}.mob-nav a:nth-child(3){animation-delay:.15s}.mob-nav a:nth-child(4){animation-delay:.2s}.mob-nav a:nth-child(5){animation-delay:.25s}
+
+    /* RESPONSIVE */
+    @media(max-width:1024px){
+      nav,nav.scrolled{padding:1rem 2rem}.hero-left{padding:8rem 3rem 4rem}.section{padding:5rem 3rem}
+      .markets,.parent{padding:5rem 3rem}.promise-strip,.gallery{padding:3rem}
+      .pcards{grid-template-columns:1fr 1fr}.why-grid{grid-template-columns:1fr 1fr}.ft{grid-template-columns:1fr 1fr;gap:2rem}
+    }
+    @media(max-width:768px){
+      nav{padding:1rem 1.5rem}.nav-links{display:none}.hamburger{display:flex}
+      .hero{grid-template-columns:1fr}.hero-left{padding:7rem 1.75rem 3rem}.hero-right{height:280px}
+      .promise-strip{grid-template-columns:1fr;padding:3rem 2rem}.section{padding:4rem 1.75rem}
+      .about{grid-template-columns:1fr;gap:2.5rem}.about-img{height:320px}
+      .gallery{padding:4rem 1.75rem}.gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto}
+      .g-item.tall{grid-row:span 1}.svc-hdr{grid-template-columns:1fr}.svc-grid{grid-template-columns:1fr}
+      .steps-wrap{grid-template-columns:1fr;gap:2rem}.why-grid{grid-template-columns:1fr}
+      .pricing-top{grid-template-columns:1fr}.pcards{grid-template-columns:1fr}
+      .storey-addon{grid-template-columns:1fr;gap:1rem}.storey-price{text-align:left}
+      .board-section{grid-template-columns:1fr;gap:3rem}.photo-feature{grid-template-columns:1fr}
+      .pf-img{min-height:320px}.pf-content{padding:3rem 1.75rem}.mkt-grid{grid-template-columns:1fr}
+      .parent{grid-template-columns:1fr;padding:4rem 1.75rem}.contact-grid{grid-template-columns:1fr;gap:3rem}
+      .ft{grid-template-columns:1fr;gap:2rem}.ft-bottom{flex-direction:column;gap:0.5rem;text-align:center}
+      footer{padding:3rem 1.75rem 2rem}.markets{padding:4rem 1.75rem}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <span class="nav-logo-main">Chroma</span>
+    <span class="nav-logo-sub">by Tetrux</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Our Process</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#markets">Markets</a></li>
+    <li><a href="#contact" class="nav-cta">Book a Consult</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" onclick="toggleNav()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mob-nav" id="mobNav">
+  <a href="#services" onclick="closeNav()">Services</a>
+  <a href="#process" onclick="closeNav()">Our Process</a>
+  <a href="#pricing" onclick="closeNav()">Pricing</a>
+  <a href="#markets" onclick="closeNav()">Markets</a>
+  <a href="#contact" onclick="closeNav()">Book a Consult</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="hero-eyebrow">Lagos, Nigeria</span>
+    <h1 class="hero-headline">Your space,<br><em>transformed</em><br>with intention.</h1>
+    <p class="hero-subline">Premium decorative painting and expert colour consultation for discerning Lagos homeowners. You see exactly how your home will look before we begin. No guesswork. No surprises.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Book a Colour Consult</a>
+      <a href="#services" class="btn-secondary">See Our Services</a>
+    </div>
+    <p class="hero-tagline">Color, Crafted for You.</p>
+  </div>
+  <div class="hero-right">
+    <div style="position:absolute;inset:0">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+      <div class="blob blob-3"></div>
+      <div class="blob blob-4"></div>
+    </div>
+    <div class="hero-right-content">
+      <div class="hero-swatches">
+        <div class="swatch sw1"></div><div class="swatch sw2"></div><div class="swatch sw3"></div>
+        <div class="swatch sw4"></div><div class="swatch sw5"></div><div class="swatch sw6"></div>
+      </div>
+      <p class="hero-right-label">Sample Colour Palette</p>
+      <p class="hero-right-title">Every colour chosen with purpose.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROMISE STRIP -->
+<div class="promise-strip">
+  <div class="promise-item"><span class="promise-number">01</span><span class="promise-word">Consult.</span><p class="promise-desc">We analyse your space, your light, and your lifestyle. Then we build a colour strategy around it.</p></div>
+  <div class="promise-item"><span class="promise-number">02</span><span class="promise-word">Commit.</span><p class="promise-desc">You approve every colour before a single tin is opened. Nothing proceeds without your sign-off.</p></div>
+  <div class="promise-item"><span class="promise-number">03</span><span class="promise-word">Deliver.</span><p class="promise-desc">Clean execution. Premium materials. A 6-month touch-up warranty on every job, every time.</p></div>
+</div>
+
+<!-- ABOUT -->
+<section class="section about" id="about">
+  <div class="about-img">
+    <img src="https://images.unsplash.com/photo-1600210492493-0946911123ea?auto=format&fit=crop&w=900&q=80" alt="Beautifully painted luxury living room" loading="lazy" />
+    <div class="about-caption"><strong>6-Month Warranty</strong><span>Standard on every Chroma job</span></div>
+  </div>
+  <div>
+    <p class="lbl">About Chroma</p>
+    <h2 class="sh">A different kind of<br><em>paint brand.</em></h2>
+    <p class="sb">In Lagos, most painting jobs end in frustration. Wrong colours, missed timelines, sites left in a mess. Chroma by Tetrux was built specifically for homeowners who are done settling for that.</p>
+    <br>
+    <p class="sb">We combine expert colour knowledge with disciplined, professional execution. Our consultation process means you see your palette before we buy a single tin of paint. Our salary-employed team are trained to Chroma standards, not sourced from a pool on the day.</p>
+    <br>
+    <p class="sb">The result is a home that looks exactly the way you imagined. Delivered on time. Finished properly. Backed by a warranty.</p>
+    <a href="#services" class="btn-secondary" style="margin-top:2rem;display:inline-block">Explore Our Services</a>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<div class="gallery section" id="gallery">
+  <p class="gallery-lbl">Our Work</p>
+  <h2 class="gallery-h">Spaces we have<br><em>transformed.</em></h2>
+  <p class="gallery-sub">Every project is completed to the full Chroma standard. These are the results.</p>
+  <div class="gallery-grid">
+    <div class="g-item tall">
+      <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=700&q=80" alt="Luxury living room" loading="lazy" />
+      <div class="g-overlay"><span>Living Room, Lekki</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=700&q=80" alt="Luxury bedroom" loading="lazy" />
+      <div class="g-overlay"><span>Master Bedroom, Ikoyi</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=700&q=80" alt="Modern home exterior" loading="lazy" />
+      <div class="g-overlay"><span>Exterior, Victoria Island</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?auto=format&fit=crop&w=700&q=80" alt="Warm dining area" loading="lazy" />
+      <div class="g-overlay"><span>Open Plan, Banana Island</span></div>
+    </div>
+    <div class="g-item">
+      <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=700&q=80" alt="Neutral palette lounge" loading="lazy" />
+      <div class="g-overlay"><span>Lounge, Magodo GRA</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- EXTERIOR BUILDINGS -->
+<div class="exterior-strip">
+  <div class="ext-item">
+    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=80"
+         alt="Luxury residential building exterior" loading="lazy" />
+    <div class="ext-overlay">
+      <span class="ext-tag">Exterior — Luxury Finish</span>
+      <div class="ext-title">Statement Homes.<br>Flawless Finish.</div>
+      <p class="ext-desc">High-end exterior painting demands the right primer, the right paint, and clean, sharp lines. We deliver all three.</p>
+    </div>
+  </div>
+  <div class="ext-item">
+    <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?auto=format&fit=crop&w=1000&q=80"
+         alt="Clean modern home exterior" loading="lazy" />
+    <div class="ext-overlay">
+      <span class="ext-tag">Exterior — Clean Modern</span>
+      <div class="ext-title">Every Home<br>Deserves Precision.</div>
+      <p class="ext-desc">Whether a compact bungalow or a multi-storey duplex, the Chroma standard applies on every facade, every time.</p>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="section services" id="services">
+  <div class="svc-hdr">
+    <div>
+      <p class="lbl">What We Do</p>
+      <h2 class="sh">Two services.<br><em>One standard.</em></h2>
+    </div>
+    <p class="sb" style="max-width:400px">Whether you need the full transformation or expert colour direction to guide your own project, we have a service built for you.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="svc-accent"></div>
+      <div class="svc-icon">🎨</div>
+      <h3 class="svc-title">Chroma Colour &amp; Paint</h3>
+      <p class="svc-desc">The full Chroma experience. From your first colour consultation through to the final walkthrough. We prepare your surfaces, match your colour exactly using precision tinting, apply two full coats with premium paint, and leave your home immaculate.</p>
+      <ul class="svc-list">
+        <li>Expert colour consultation included</li>
+        <li>Full surface preparation and repair</li>
+        <li>PVA sealer and primer coat</li>
+        <li>Minimum two finish coats, premium paint</li>
+        <li>Daily site cleaning and full floor protection</li>
+        <li>Completion walkthrough and snag fix</li>
+        <li>6-month touch-up warranty</li>
+      </ul>
+      <div class="svc-price"><strong>From NGN 80,000</strong> per room. Full apartments from NGN 350,000.</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-accent"></div>
+      <div class="svc-icon">✦</div>
+      <h3 class="svc-title">Chroma Colour Consult</h3>
+      <p class="svc-desc">Expert colour direction without the painting service. Ideal if you want certainty about your palette before committing, or if you are managing your own execution and need a professional eye on the outcome.</p>
+      <ul class="svc-list">
+        <li>Client intake and space assessment</li>
+        <li>Three distinct palettes curated for your space</li>
+        <li>Branded Colour Board PDF delivered to you</li>
+        <li>Exact Dulux or Berger paint codes specified</li>
+        <li>Shopping guide with quantities and products</li>
+        <li>One round of palette revision included</li>
+      </ul>
+      <div class="svc-price"><strong>Flat fee: NGN 30,000</strong> to <strong>NGN 50,000</strong> depending on scope.</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section how-it-works on-dark" id="process">
+  <p class="lbl">The Chroma Process</p>
+  <h2 class="sh">How we get your<br><em>colours exactly right.</em></h2>
+  <p class="sb">No guesswork. No surprises. Before we purchase a single tin of paint, you have seen exactly how your space will look, confirmed every colour in writing, and approved the palette. This is how Chroma protects your investment and your home.</p>
+  <div class="steps-wrap">
+    <div class="step-nav" id="stepsNav">
+      <div class="step-tab active" onclick="showStep(0)"><span class="step-num">01</span><span class="step-lbl">Intake &amp; Site Visit</span></div>
+      <div class="step-tab" onclick="showStep(1)"><span class="step-num">02</span><span class="step-lbl">Photo Collection</span></div>
+      <div class="step-tab" onclick="showStep(2)"><span class="step-num">03</span><span class="step-lbl">Colour Strategy</span></div>
+      <div class="step-tab" onclick="showStep(3)"><span class="step-num">04</span><span class="step-lbl">Colour Board Presentation</span></div>
+      <div class="step-tab" onclick="showStep(4)"><span class="step-num">05</span><span class="step-lbl">Client Approval</span></div>
+      <div class="step-tab" onclick="showStep(5)"><span class="step-num">06</span><span class="step-lbl">Precision Mixing &amp; Execution</span></div>
+      <div class="step-tab" onclick="showStep(6)"><span class="step-num">07</span><span class="step-lbl">Completion &amp; Warranty</span></div>
+    </div>
+    <div class="step-box">
+      <div class="step-content active" data-i="0"><div class="step-big-num">01</div><h3 class="step-title">Intake &amp; Site Visit</h3><p class="step-body">You receive a short intake form via WhatsApp. We ask about room function, lighting, existing furniture tones, style preferences, and colours to avoid. Then we schedule a free site visit within 48 hours. We never quote blindly over the phone.</p><span class="step-tag">Free site visit included</span></div>
+      <div class="step-content" data-i="1"><div class="step-big-num">02</div><h3 class="step-title">Photo Collection</h3><p class="step-body">We collect 4 to 6 photos of your space from key angles. Corners, windows, and main furniture. These give us everything we need to understand how light moves through your home and how colour will perform in it.</p><span class="step-tag">Via WhatsApp</span></div>
+      <div class="step-content" data-i="2"><div class="step-big-num">03</div><h3 class="step-title">Colour Strategy</h3><p class="step-body">Our colour consultants analyse your space in full. Natural light quality, room proportions, existing furniture tones, and your stated preferences. We develop three distinct palette options, each with a main wall colour, ceiling finish, trim, and optional accent, all specified to exact Dulux or Berger paint codes.</p><span class="step-tag">Expert colour analysis</span></div>
+      <div class="step-content" data-i="3"><div class="step-big-num">04</div><h3 class="step-title">Colour Board Presentation</h3><p class="step-body">We build a branded Chroma Colour Board PDF with all three palette options. Each option shows colour swatches, the palette name, the rationale, and exact paint codes. We also apply each palette to photos of your actual room so you see how it reads in your specific light before making any decision.</p><span class="step-tag">Branded Colour Board PDF</span></div>
+      <div class="step-content" data-i="4"><div class="step-big-num">05</div><h3 class="step-title">Client Approval</h3><p class="step-body">You choose your palette, or request a hybrid. Adjustments are made. Once you are satisfied, you confirm in writing. That confirmation is the point of no return. Not a single tin of paint is purchased until we have it. This protects you and protects us.</p><span class="step-tag">Written approval before any purchase</span></div>
+      <div class="step-content" data-i="5"><div class="step-big-num">06</div><h3 class="step-title">Precision Mixing &amp; Execution</h3><p class="step-body">Your approved colour codes go to a Dulux or Berger store tinting machine. The exact colour is mixed from your specification. On Day 1 we apply a test panel on your actual wall and confirm it in both morning and evening light before the full job begins.</p><span class="step-tag">Tinting machine precision</span></div>
+      <div class="step-content" data-i="6"><div class="step-big-num">07</div><h3 class="step-title">Completion &amp; Warranty</h3><p class="step-body">We complete a full quality inspection before calling you for the walkthrough. Every edge, every surface, every fitting checked. You walk through the finished space with us. Any punch list items are addressed before we leave. Every Chroma job carries a 6-month touch-up warranty on workmanship, standard.</p><span class="step-tag">6-month warranty included</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOUR BOARD -->
+<section class="section board-section" id="colour-board">
+  <div>
+    <p class="lbl">The Chroma Colour System</p>
+    <h2 class="sh">See your home<br><em>before we start.</em></h2>
+    <p class="sb">No other residential painting brand in Lagos delivers this level of colour certainty. Before a drop of paint touches your walls, you receive a branded Colour Board with three professionally curated palette options, shown on photos of your actual space.</p>
+    <br>
+    <p class="sb">Every shade is specified to an exact paint code and mixed by tinting machine. What you approved is what goes on your walls. Precisely.</p>
+    <div style="margin-top:2rem"><a href="#contact" class="btn-primary">Request a Colour Board</a></div>
+  </div>
+  <div class="board-widget">
+    <div class="bw-header"><span class="bw-title">Chroma Colour Board</span><span class="bw-brand">Chroma by Tetrux</span></div>
+    <div class="pal selected" onclick="selPal(this)">
+      <div class="pal-row"><span class="pal-name">Lagos Terrace</span><div style="display:flex;align-items:center;gap:.5rem"><span class="pal-tag">Option 01</span><div class="sel-dot"></div></div></div>
+      <div class="pal-swatches"><div class="ps p1a"></div><div class="ps p1b"></div><div class="ps p1c"></div><div class="ps p1d"></div><div class="ps p1e"></div></div>
+    </div>
+    <div class="pal" onclick="selPal(this)">
+      <div class="pal-row"><span class="pal-name">Harmattan White</span><div style="display:flex;align-items:center;gap:.5rem"><span class="pal-tag">Option 02</span><div class="sel-dot"></div></div></div>
+      <div class="pal-swatches"><div class="ps p2a"></div><div class="ps p2b"></div><div class="ps p2c"></div><div class="ps p2d"></div><div class="ps p2e"></div></div>
+    </div>
+    <div class="pal" onclick="selPal(this)">
+      <div class="pal-row"><span class="pal-name">Atlantic Dusk</span><div style="display:flex;align-items:center;gap:.5rem"><span class="pal-tag">Option 03</span><div class="sel-dot"></div></div></div>
+      <div class="pal-swatches"><div class="ps p3a"></div><div class="ps p3b"></div><div class="ps p3c"></div><div class="ps p3d"></div><div class="ps p3e"></div></div>
+    </div>
+    <div class="bw-footer"><span class="bw-note">Select a palette above to approve</span><span class="bw-badge">Colour Certified</span></div>
+  </div>
+</section>
+
+<!-- PHOTO FEATURE -->
+<div class="photo-feature">
+  <div class="pf-img">
+    <img src="https://images.unsplash.com/photo-1615529328331-f8917597711f?auto=format&fit=crop&w=900&q=80" alt="Premium painted interior" loading="lazy" />
+  </div>
+  <div class="pf-content">
+    <p class="lbl">The Chroma Standard</p>
+    <h2 class="sh">Premium execution.<br><em>Every time.</em></h2>
+    <p class="sb">The difference between a good paint job and a Chroma job is not just the colour. It is the preparation. The patience. The precision at every edge and corner. The care taken with your home as though it were our own.</p>
+    <div class="pf-quotes">
+      <div class="pfq"><span class="pfq-mark">"</span><span class="pfq-text">Clean execution means every corner, every skirting board, every ceiling line finished as though it will be inspected up close. Because it will be.</span></div>
+      <div class="pfq"><span class="pfq-mark">"</span><span class="pfq-text">We do not move to the next coat until the previous one is fully dry. Premium clients notice when this rule is broken.</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- WHY CHROMA -->
+<section class="section why-chroma" id="why">
+  <p class="lbl">Why Chroma</p>
+  <h2 class="sh">What sets us<br><em>apart.</em></h2>
+  <div class="why-grid">
+    <div class="why-card"><div class="why-icon">◆</div><h4 class="why-title">Expert Colour Consultation</h4><p class="why-body">You receive a professionally curated Colour Board with three palette options applied to your actual space before anything is purchased. No other residential painter in Lagos delivers this.</p></div>
+    <div class="why-card"><div class="why-icon">✓</div><h4 class="why-title">6-Month Warranty, Standard</h4><p class="why-body">Every job carries a 6-month touch-up warranty on workmanship. Not an upgrade, not a premium tier. Standard, on every project, every time.</p></div>
+    <div class="why-card"><div class="why-icon">★</div><h4 class="why-title">Salaried, Trained Team</h4><p class="why-body">Our painters are employed by Chroma, not sourced per job. They go through a structured training programme and work to written brand standards on every site.</p></div>
+    <div class="why-card"><div class="why-icon">◎</div><h4 class="why-title">Premium Materials Only</h4><p class="why-body">We specify Dulux, Berger, and Jotun. Colours are mixed by tinting machine to exact codes. We do not substitute products without your explicit approval.</p></div>
+    <div class="why-card"><div class="why-icon">→</div><h4 class="why-title">Written Approval at Every Stage</h4><p class="why-body">Colour confirmed before paint is purchased. Completion signed off before we leave. Every stage documented. Disputes do not arise when expectations are set clearly from day one.</p></div>
+    <div class="why-card"><div class="why-icon">◉</div><h4 class="why-title">50/50 Payment Structure</h4><p class="why-body">Fifty percent on signing. Fifty percent on completion and walkthrough sign-off. You do not pay the balance until you are satisfied with the finished result.</p></div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section pricing" id="pricing">
+  <div class="pricing-top">
+    <div>
+      <p class="lbl">Transparent Pricing</p>
+      <h2 class="sh">What to expect<br><em>to invest.</em></h2>
+    </div>
+    <p class="sb" style="max-width:420px">Chroma does not compete on price. We compete on certainty, professionalism, and outcome. All ranges are indicative and confirmed after a free site visit.</p>
+  </div>
+
+  <div class="ptabs">
+    <button class="ptab active" onclick="showPane('rooms',this)">By Room</button>
+    <button class="ptab" onclick="showPane('storeys',this)">By Building / Storeys</button>
+    <button class="ptab" onclick="showPane('consult',this)">Consult Only</button>
+  </div>
+
+  <!-- BY ROOM -->
+  <div class="ppane active" id="pane-rooms">
+    <div class="pcards">
+      <div class="pcard">
+        <div class="ph"><div class="pname">Single Room</div><div class="pdesc">Up to 30 sqm. Interior walls, ceiling, and trim.</div></div>
+        <div class="pamount"><span class="pfrom">Per room, from</span><div class="pprice">NGN 80k – 150k</div></div>
+        <ul class="pitems"><li>Colour consultation included</li><li>Full surface preparation</li><li>Two finish coats, premium paint</li><li>6-month touch-up warranty</li></ul>
+        <div class="pcta"><a href="#contact" class="pbtn pbtn-out">Get a Quote</a></div>
+      </div>
+      <div class="pcard feat">
+        <div class="ph"><div class="pbadge">Most Popular</div><div class="pname">Multi-Room / Apartment</div><div class="pdesc">3 to 5 rooms. 2 to 4 bedroom flat, full interior.</div></div>
+        <div class="pamount"><span class="pfrom">Full apartment, from</span><div class="pprice">NGN 350k – 700k+</div></div>
+        <ul class="pitems"><li>Colour consultation for all zones</li><li>All surface preparation and primer</li><li>Two finish coats throughout</li><li>Daily cleaning and full protection</li><li>Completion walkthrough</li><li>6-month touch-up warranty</li></ul>
+        <div class="pcta" style="border-top:1px solid rgba(247,242,234,0.12);padding-top:1.25rem"><a href="#contact" class="pbtn pbtn-fill">Book a Site Visit</a></div>
+      </div>
+      <div class="pcard">
+        <div class="ph"><div class="pname">Feature Wall</div><div class="pdesc">Single accent or statement wall.</div></div>
+        <div class="pamount"><span class="pfrom">Flat fee, from</span><div class="pprice">NGN 40k – 80k</div></div>
+        <ul class="pitems"><li>Colour direction for accent wall</li><li>Surface prep and primer</li><li>Two finish coats, premium paint</li><li>Sharp, clean colour transitions</li></ul>
+        <div class="pcta"><a href="#contact" class="pbtn pbtn-out">Get a Quote</a></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BY STOREYS -->
+  <div class="ppane" id="pane-storeys">
+    <div class="pcards">
+      <div class="pcard">
+        <div class="ph"><div class="pname">Bungalow</div><div class="pdesc">Single ground floor. 2 to 3 bedrooms. Full interior scope.</div></div>
+        <div class="pamount"><span class="pfrom">From</span><div class="pprice">NGN 280k – 500k</div></div>
+        <ul class="pitems"><li>Colour consultation for all rooms</li><li>Full interior surface preparation</li><li>Two finish coats throughout</li><li>6-month touch-up warranty</li></ul>
+        <div class="pcta"><a href="#contact" class="pbtn pbtn-out">Get a Quote</a></div>
+      </div>
+      <div class="pcard feat">
+        <div class="ph"><div class="pbadge">Most Popular</div><div class="pname">2-Storey Duplex</div><div class="pdesc">Ground + first floor. 3 to 5 bedrooms. Full interior.</div></div>
+        <div class="pamount"><span class="pfrom">From</span><div class="pprice">NGN 600k – 1.1M</div></div>
+        <ul class="pitems"><li>Multi-zone colour strategy</li><li>All surface preparation and primer</li><li>Two coats throughout all floors</li><li>Stairwell and landings included</li><li>Dedicated team lead on site</li><li>6-month touch-up warranty</li></ul>
+        <div class="pcta" style="border-top:1px solid rgba(247,242,234,0.12);padding-top:1.25rem"><a href="#contact" class="pbtn pbtn-fill">Book a Site Visit</a></div>
+      </div>
+      <div class="pcard">
+        <div class="ph"><div class="pname">3-Storey &amp; Above</div><div class="pdesc">Triplex, townhouse, or maisonette. Three or more floors.</div></div>
+        <div class="pamount"><span class="pfrom">From</span><div class="pprice">NGN 1M – 2M+</div></div>
+        <ul class="pitems"><li>Colour strategy per floor zone</li><li>Feature walls and accent rooms</li><li>All floors, staircases, and landings</li><li>Founder sign-off before handover</li><li>6-month touch-up warranty</li></ul>
+        <div class="pcta"><a href="#contact" class="pbtn pbtn-out">Request a Quote</a></div>
+      </div>
+    </div>
+    <div class="storey-addon">
+      <div class="storey-text">
+        <strong>Adding a floor to an existing quote?</strong>
+        <span>Each additional storey is priced separately. The rate covers colour consultation for the new floor, full surface prep, primer, two finish coats in premium paint, and warranty coverage. Always subject to a site assessment.</span>
+      </div>
+      <div class="storey-price">
+        <span class="big">NGN 200k – 350k</span>
+        <span class="lbl">per additional storey</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONSULT ONLY -->
+  <div class="ppane" id="pane-consult">
+    <div class="pcards" style="grid-template-columns:1fr 1fr">
+      <div class="pcard">
+        <div class="ph"><div class="pname">Single Space Consult</div><div class="pdesc">One room or zone. Bedroom, living room, or office.</div></div>
+        <div class="pamount"><span class="pfrom">Flat fee</span><div class="pprice">NGN 30,000</div></div>
+        <ul class="pitems"><li>Branded Colour Board PDF</li><li>3 palette options for your space</li><li>Exact paint codes and finish types</li><li>Paint shopping guide with quantities</li><li>One revision round included</li></ul>
+        <div class="pcta"><a href="#contact" class="pbtn pbtn-out">Book a Consult</a></div>
+      </div>
+      <div class="pcard feat">
+        <div class="ph"><div class="pbadge">Full Home</div><div class="pname">Whole-Home Consult</div><div class="pdesc">Every room, one cohesive colour story for the whole house.</div></div>
+        <div class="pamount"><span class="pfrom">Flat fee</span><div class="pprice">NGN 50,000</div></div>
+        <ul class="pitems"><li>Colour strategy for all rooms</li><li>Separate palettes per zone</li><li>Colour flow and transitions mapped</li><li>Exterior colour direction included</li><li>Full branded PDF Colour Board</li><li>Up to two revision rounds</li></ul>
+        <div class="pcta" style="border-top:1px solid rgba(247,242,234,0.12);padding-top:1.25rem"><a href="#contact" class="pbtn pbtn-fill">Book a Consult</a></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="pnote">All prices are indicative. Exact quotes follow a free site visit. 50% deposit to start. 50% on completion and sign-off. Rates vary by surface condition, ceiling height, number of colours, and paint brand selected.</p>
+</section>
+
+<!-- MARKETS -->
+<div class="markets section on-dark" id="markets">
+  <p class="lbl">Where We Operate</p>
+  <h2 class="sh">Built for Nigeria.<br><em>Expanding West Africa.</em></h2>
+  <div class="mkt-grid">
+    <div class="mkt-card">
+      <div class="mkt-status active">Active Now</div>
+      <div class="mkt-title">Lagos, Nigeria</div>
+      <p class="mkt-body">Our primary market. We serve upper-middle and affluent homeowners across Lagos. Demand for premium, reliable home finishing services here is significant and growing. Chroma was built specifically for this market.</p>
+      <div class="mkt-tags"><span class="mkt-tag">Victoria Island</span><span class="mkt-tag">Ikoyi</span><span class="mkt-tag">Lekki</span><span class="mkt-tag">Banana Island</span><span class="mkt-tag">Magodo</span><span class="mkt-tag">Ikeja GRA</span></div>
+    </div>
+    <div class="mkt-card">
+      <div class="mkt-status expand">Expanding</div>
+      <div class="mkt-title">West Africa</div>
+      <p class="mkt-body">Chroma is designed to scale. As Lagos operations mature, we will replicate the model across West African cities with the same premium standards and structured execution. Built for this from day one.</p>
+      <div class="mkt-tags"><span class="mkt-tag">Abuja</span><span class="mkt-tag">Port Harcourt</span><span class="mkt-tag">Accra</span><span class="mkt-tag">Abidjan</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- PARENT -->
+<div class="parent">
+  <div>
+    <p class="parent-lbl">Brand Family</p>
+    <h3 class="parent-title">Tetrux</h3>
+    <p class="parent-tag">Engineered Safety. Structured Protection.</p>
+    <p class="parent-body">Chroma by Tetrux is part of the Tetrux brand family. Tetrux is a safety and protection brand built on structured, engineered systems across industrial and commercial environments. The two brands operate in completely different markets, but they share the same operational philosophy: professional execution, structured process, and reliability as a non-negotiable standard.</p>
+    <p class="parent-body" style="margin-top:.75rem">The discipline behind Chroma is the Tetrux standard applied to your home.</p>
+    <a href="#" class="parent-link">Learn about Tetrux ↗</a>
+  </div>
+  <div class="pillars">
+    <div class="pillar"><div class="pillar-dot"></div>Prevention and proactive risk design</div>
+    <div class="pillar"><div class="pillar-dot"></div>Protection of lives, assets, and infrastructure</div>
+    <div class="pillar"><div class="pillar-dot"></div>Compliance and continuous monitoring</div>
+    <div class="pillar"><div class="pillar-dot"></div>Resilience and continuity under disruption</div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+  <div class="contact-grid">
+    <div>
+      <p class="lbl">Get in Touch</p>
+      <h2 class="sh">Start with a<br><em>free site visit.</em></h2>
+      <p class="sb">Every Chroma engagement starts with a free site visit. We come to your home, assess your space, and tell you exactly what is possible. No obligations, no pressure. Just an expert eye and an honest recommendation.</p>
+      <div class="channels">
+        <div class="channel"><div class="ch-icon">📱</div><div><div class="ch-lbl">WhatsApp</div><div class="ch-val">Message us to book</div></div></div>
+        <div class="channel"><div class="ch-icon">📸</div><div><div class="ch-lbl">Instagram</div><div class="ch-val">@chromabytetrux</div></div></div>
+        <div class="channel"><div class="ch-icon">📍</div><div><div class="ch-lbl">Service Area</div><div class="ch-val">Lagos, Nigeria</div></div></div>
+      </div>
+      <div class="c-promise">
+        <p class="c-promise-text">"We reply within 2 hours. Every inquiry. That is not a target, it is a standard."</p>
+        <p class="c-promise-note">Response commitment — Chroma by Tetrux</p>
+      </div>
+    </div>
+    <div>
+      <div class="fg"><label for="name">Full Name</label><input type="text" id="name" placeholder="Your full name" /></div>
+      <div class="fg"><label for="phone">WhatsApp Number</label><input type="tel" id="phone" placeholder="+234 000 000 0000" /></div>
+      <div class="fg"><label for="loc">Location (Area in Lagos)</label><input type="text" id="loc" placeholder="e.g. Lekki Phase 1, Ikoyi, VI..." /></div>
+      <div class="fg"><label for="svc">Service Interested In</label>
+        <select id="svc"><option value="" disabled selected>Select a service</option><option>Chroma Colour &amp; Paint (Full Service)</option><option>Chroma Colour Consult (Standalone)</option><option>Not sure yet</option></select>
+      </div>
+      <div class="fg"><label for="scope">Briefly describe your project</label><textarea id="scope" placeholder="e.g. 3-bedroom duplex in Lekki, full repaint, moving in next month..."></textarea></div>
+      <button class="btn-primary" style="width:100%;margin-top:.5rem;border:none" onclick="submitForm()">Request a Free Site Visit</button>
+      <p style="font-size:.75rem;color:var(--text-light);margin-top:.75rem;text-align:center">We will respond within 2 hours via WhatsApp.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft">
+    <div>
+      <div class="ft-name">Chroma by Tetrux</div>
+      <div class="ft-parent">A Tetrux Brand</div>
+      <p class="ft-desc">Premium decorative painting and expert colour consultation for Lagos homeowners. We consult. We commit. We deliver.</p>
+    </div>
+    <div>
+      <p class="ft-col-title">Services</p>
+      <ul class="ft-links"><li><a href="#services">Colour &amp; Paint</a></li><li><a href="#services">Colour Consult</a></li><li><a href="#process">Our Process</a></li><li><a href="#pricing">Pricing</a></li></ul>
+    </div>
+    <div>
+      <p class="ft-col-title">Company</p>
+      <ul class="ft-links"><li><a href="#about">About Chroma</a></li><li><a href="#why">Why Chroma</a></li><li><a href="#markets">Markets</a></li><li><a href="#">Tetrux Parent Brand</a></li></ul>
+    </div>
+    <div>
+      <p class="ft-col-title">Contact</p>
+      <ul class="ft-links"><li><a href="#contact">Book a Site Visit</a></li><li><a href="#">WhatsApp Us</a></li><li><a href="#">Instagram</a></li><li><a href="#">Lagos, Nigeria</a></li></ul>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <span>© 2025 Chroma by Tetrux. All rights reserved.</span>
+    <span class="ft-italic">Color, Crafted for You.</span>
+  </div>
+</footer>
+
+<div class="toast" id="toast">Your request has been received. We will be in touch within 2 hours.</div>
+
+<script>
+  // Nav scroll
+  const nb = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nb.classList.toggle('scrolled', window.scrollY > 40));
+
+  // Mobile nav
+  function toggleNav() { document.getElementById('mobNav').classList.toggle('open'); }
+  function closeNav() { document.getElementById('mobNav').classList.remove('open'); }
+
+  // Reveal
+  const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } }), { threshold: 0.07 });
+  document.querySelectorAll('.section').forEach(s => obs.observe(s));
+
+  // Steps
+  function showStep(i) {
+    document.querySelectorAll('.step-tab').forEach((t,idx) => t.classList.toggle('active', idx===i));
+    document.querySelectorAll('.step-content').forEach(c => c.classList.remove('active'));
+    document.querySelector(`.step-content[data-i="${i}"]`).classList.add('active');
+  }
+  let si=0, siv, ui=false;
+  document.getElementById('stepsNav').addEventListener('click', () => { ui=true; clearInterval(siv); });
+  new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting && !ui) siv=setInterval(() => { si=(si+1)%7; showStep(si); }, 4200);
+    else clearInterval(siv);
+  }), { threshold: 0.3 }).observe(document.getElementById('process'));
+
+  // Pricing tabs
+  function showPane(id, btn) {
+    document.querySelectorAll('.ppane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+    document.getElementById('pane-'+id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  // Palette select
+  function selPal(el) {
+    document.querySelectorAll('.pal').forEach(p => p.classList.remove('selected'));
+    el.classList.add('selected');
+  }
+
+  // Form
+  function submitForm() {
+    const n = document.getElementById('name').value.trim();
+    const p = document.getElementById('phone').value.trim();
+    document.getElementById('name').style.borderColor = !n ? 'var(--terracotta)' : '';
+    document.getElementById('phone').style.borderColor = !p ? 'var(--terracotta)' : '';
+    if (!n || !p) return;
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 4500);
+    ['name','phone','loc','svc','scope'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  }
+</script>
+</body>
+</html>
